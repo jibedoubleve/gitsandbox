@@ -1,4 +1,9 @@
 
+///////////////////////////////////////////////////////////////////////////////
+/// TOOLS & ADDINS
+///////////////////////////////////////////////////////////////////////////////
+#tool nuget:?package=GitVersion.CommandLine&version=5.12.0
+#addin nuget:?package=Cake.Git&version=4.0.0
 
 ///////////////////////////////////////////////////////////////////////////////
 /// USINGS & NAMESPACES
@@ -19,12 +24,30 @@ var target   = Argument("target", "Default");
 /// SETUP / TEARDOWN
 ///////////////////////////////////////////////////////////////////////////////
 Setup(ctx => {
-    AnsiConsole.Write(
-    new FigletText($"{repoName}")
-        .LeftJustified()
-        .Color(Color.Red));
+    // https://gitversion.net/docs/usage/cli/arguments
+    // https://cakebuild.net/api/Cake.Core.Tooling/ToolSettings/50AAB3A8
+    gitVersion = GitVersion(new GitVersionSettings 
+    { 
+        OutputType            = GitVersionOutput.Json,
+        Verbosity             = GitVersionVerbosity.Verbose,        
+        ArgumentCustomization = args => args.Append("/updateprojectfiles")
+    });
+    var branchName = gitVersion.BranchName;
+    var workingDirectory = System.IO.Directory.GetCurrentDirectory();
 
-    Information("Hello world all's fine...");
+    AnsiConsole.Write(
+        new FigletText($"{repoName}")
+            .LeftJustified()
+            .Color(Color.Red));
+
+    Information("Working directory         : {0}", workingDirectory);  
+    Information("Branch                    : {0}", branchName);
+    Information("Informational      Version: {0}", gitVersion.InformationalVersion);
+    Information("SemVer             Version: {0}", gitVersion.SemVer);
+    Information("AssemblySemVer     Version: {0}", gitVersion.AssemblySemVer);
+    Information("AssemblySemFileVer Version: {0}", gitVersion.AssemblySemFileVer);
+    Information("MajorMinorPatch    Version: {0}", gitVersion.MajorMinorPatch);
+    Information("NuGet              Version: {0}", gitVersion.NuGetVersion);
 });
 
 ///////////////////////////////////////////////////////////////////////////////
