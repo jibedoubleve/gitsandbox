@@ -56,10 +56,18 @@ Setup(ctx => {
 Task("info").Does(()=> { 
         /*Does nothing but specifying information of the build*/ 
 });
+Task("dev").Does(()=> Information("Release in DEV"));
+Task("prd").Does(()=> Information("Release in PROD"));
 
 ///////////////////////////////////////////////////////////////////////////////
 /// DEPENDENCIES
 ///////////////////////////////////////////////////////////////////////////////
 Task("default").IsDependentOn("info");
+
+Task("ci-dev").IsDependentOn("info")
+              .IsDependentOn("ci-dev");
+
+Task("ci-prd").IsDependentOn("info")
+              .IsDependentOn("ci-prd");              
 
 RunTarget(target);
