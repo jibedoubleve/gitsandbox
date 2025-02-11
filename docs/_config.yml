@@ -1,12 +1,18 @@
 title: Lanceur
-description: >- 
+description: >-
   Lanceur : Launch anything, instantly.
-github_username:  jibedoubleve
+theme: just-the-docs
+favicon_ico: "/assets/favicon.ico"
 
-theme: minima
-plugins:
-  #- jekyll-feed
+aux_links:
+  Lanceur on GitHub: https://github.com/jibedoubleve/lanceur-bis
 
+color_scheme: dark
 
-favicon_ico: "/assets/images/favicon.ico"
-logo: "/assets/images/logo.png"
+callouts:
+  information:
+    title: Information
+    color: yellow
+  note:
+    title: Note
+    color: blue
