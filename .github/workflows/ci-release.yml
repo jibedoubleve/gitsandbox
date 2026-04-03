@@ -13,3 +13,5 @@ jobs:
         run: dotnet tool restore
       - name: Run the Cake script
         uses: cake-build/cake-action@v1
+      - name: TODO to Issue
+        uses: alstr/todo-to-issue-action@v5.1.14
