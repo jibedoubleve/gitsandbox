@@ -9,9 +9,13 @@ on:
 jobs:
   todo:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
     steps:
       - name: Get the sources
-        uses: actions/checkout@v1
+        uses: actions/checkout@v6
 
       - name: TODO to Issue
         uses: alstr/todo-to-issue-action@v5.1.14
