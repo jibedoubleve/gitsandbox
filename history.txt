@@ -1,0 +1,3 @@
+Hello world, this is a text file
+Another entry in the file
+Encore une nouvelle entrée
